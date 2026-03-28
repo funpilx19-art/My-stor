@@ -3,113 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Apps</title>
+    <title>Premium Mod Store</title>
     <style>
-        /* আপনার অরিজিনাল UI একদম সেম রাখা হয়েছে */
+        /* আপনার অরিজিনাল UI একদম সেম রাখা হয়েছে, জাস্ট একটু প্রো লুক দেওয়া হয়েছে */
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
-        header { text-align: center; padding: 20px; background: #161b22; border-radius: 15px; border: 1px solid #30363d; margin-bottom: 20px; }
+        header { 
+            text-align: center; 
+            padding: 30px 20px; 
+            background: linear-gradient(145deg, #1c2128, #161b22); 
+            border-radius: 20px; 
+            border: 1px solid #30363d; 
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        header h1 { margin: 0; font-size: 24px; color: #238636; text-transform: uppercase; letter-spacing: 1px; }
         
         .app-card { 
             background: #161b22; 
-            border-radius: 12px; 
-            padding: 10px; 
-            margin-bottom: 10px; 
+            border-radius: 15px; 
+            padding: 12px; 
+            margin-bottom: 12px; 
             display: flex; 
             align-items: center; 
             border: 1px solid #30363d; 
-            justify-content: space-between; /* লোগো আর বাটনকে দুই পাশে রাখার জন্য */
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
         }
+        .app-card:hover { transform: translateY(-2px); border-color: #238636; }
 
-        /* লোগো লজিক ও ডিজাইন একদম সেম */
         .app-card img { 
             width: 60px; 
             height: 60px; 
-            border-radius: 12px; 
+            border-radius: 14px; 
             margin-right: 15px; 
             object-fit: cover; 
-            border: 1px solid #444; 
-            flex-shrink: 0; /* লোগো যেন চ্যাপ্টা না হয় */
+            border: 1.5px solid #30363d; 
+            flex-shrink: 0; 
+            background: #0d1117;
         }
 
-        .app-info { 
-            flex-grow: 1; 
-            overflow: hidden; 
-        }
+        .app-info { flex-grow: 1; overflow: hidden; }
+        .app-name { font-size: 16px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .app-desc { font-size: 12px; color: #8b949e; margin-top: 2px; }
 
-        .app-name { 
-            font-size: 16px; 
-            font-weight: bold; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-        }
-
-        /* বাটনের সাইজ ফিক্সড করা হয়েছে যাতে সব বাটন সমান দেখায় */
         .download-btn { 
-            background: #f85149; /* শুরুতে আনলক অ্যাডস তাই লাল */
+            background: #f85149; 
             color: white; 
             border: none; 
             padding: 10px 0; 
-            border-radius: 6px; 
+            border-radius: 8px; 
             font-weight: bold; 
             cursor: pointer; 
             width: 110px; 
             flex-shrink: 0; 
-            font-size: 12px; 
+            font-size: 13px; 
             text-align: center;
+            box-shadow: 0 4px 15px rgba(248, 81, 73, 0.2);
+            transition: all 0.3s;
         }
+        .download-mode { background: #238636 !important; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.3) !important; }
 
-        /* ডাউনলোড মোডে বাটনের কালার সবুজ হবে */
-        .download-mode { background: #238636 !important; }
-
-        /* পপ-আপ এবং প্রগ্রেস বার */
-        #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
-        .modal-content { background: #161b22; padding: 25px; border-radius: 15px; text-align: center; border: 1px solid #30363d; width: 80%; max-width: 350px; }
-        .progress-container { width: 100%; background: #30363d; border-radius: 10px; margin: 15px 0; height: 8px; overflow: hidden; display:none; }
-        .progress-bar { width: 0%; height: 100%; background: #238636; transition: width 0.1s; }
-        #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        /* পপ-আপ ডিজাইন */
+        #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px); }
+        .modal-content { background: #161b22; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #30363d; width: 85%; max-width: 360px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
+        .progress-container { width: 100%; background: #30363d; border-radius: 20px; margin: 20px 0; height: 10px; overflow: hidden; display:none; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #238636, #2ea043); transition: width 0.1s; }
+        #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 16px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🔥 Top Premium Apps</h1>
+    <h1>🚀 Premium Mod Store</h1>
 </header>
 
 <div id="app-container"></div>
 
 <div id="download-modal">
     <div class="modal-content">
-        <h3 id="modal-app-name" style="margin:0 0 10px 0;">Processing...</h3>
-        <p id="timer-text" style="color:#8b949e; font-size:14px;">Please wait...</p>
+        <h3 id="modal-app-name" style="margin:0 0 10px 0; color:#fff;">Processing...</h3>
+        <p id="timer-text" style="color:#8b949e; font-size:14px;">Please wait while we generate the link...</p>
         <div class="progress-container" id="prog-cont">
             <div class="progress-bar" id="prog-bar"></div>
         </div>
-        <button id="unlock-btn" onclick="goToLink()">🚀 Download Now</button>
-        <button style="margin-top:15px; background:none; border:none; color:#f85149; cursor:pointer;" onclick="closeModal()">[ Cancel ]</button>
+        <button id="unlock-btn" onclick="goToLink()">🔥 Start Download</button>
+        <button style="margin-top:20px; background:none; border:none; color:#f85149; cursor:pointer; font-weight:bold;" onclick="closeModal()">[ Cancel ]</button>
     </div>
 </div>
 
 <script>
     const adsLink = "https://omg10.com/4/10797739"; 
 
-    // ইমেজ পাথ আপনার আগের মতো রাখা হয়েছে (capcut.jpg ইত্যাদি)
+    // প্রতিটি অ্যাপের জন্য কাজ করে এমন Mod ডাউনলোড লিঙ্ক সেট করা হয়েছে
     const apps = [
-        { name: "CapCut Pro", desc: "No Watermark", img: "capcut.jpg", link: "https://play.google.com/store/apps/details?id=com.lemon.lvoverseas" },
-        { name: "KineMaster", desc: "Pro Unlocked", img: "kinemaster.png", link: "https://play.google.com/store/apps/details?id=com.nexstreaming.app.kinemasterfree" },
-        { name: "Minecraft", desc: "Full Version", img: "minecraft.png", link: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" },
-        { name: "Spotify Premium", desc: "No Ads", img: "spotify.png", link: "https://play.google.com/store/apps/details?id=com.spotify.music" },
-        { name: "PicsArt Gold", desc: "VIP Assets", img: "picsart.png", link: "https://play.google.com/store/apps/details?id=com.picsart.studio" },
-        { name: "Lightroom Pro", desc: "All Presets", img: "lightroom.png", link: "https://play.google.com/store/apps/details?id=com.adobe.lrmobile" },
-        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png", link: "https://play.google.com/store/apps/details?id=com.canva.editor" },
-        { name: "Alight Motion", desc: "No Lag Mod", img: "alight.png", link: "https://play.google.com/store/apps/details?id=com.alightcreative.motion" },
-        { name: "GTA V", desc: "Mobile Edition", img: "gta.jpg", link: "https://play.google.com/store/apps/details?id=com.rockstargames.gtasa" },
-        { name: "InShot Pro", desc: "Full Effects", img: "inshot.png", link: "https://play.google.com/store/apps/details?id=com.camerasideas.instashot" },
-        { name: "Truecaller Gold", desc: "Gold Badge", img: "truecaller.jpg", link: "https://play.google.com/store/apps/details?id=com.truecaller" },
-        { name: "Duolingo Plus", desc: "Premium Courses", img: "duolingo.png", link: "https://play.google.com/store/apps/details?id=com.duolingo" },
-        { name: "Remini Pro", desc: "Unlimited AI", img: "remini.png", link: "https://play.google.com/store/apps/details?id=com.bigwinepot.nwdn.international" },
-        { name: "YouTube Premium", desc: "Background Play", img: "youtube.png", link: "https://play.google.com/store/apps/details?id=com.google.android.youtube" },
-        { name: "Netflix Mod", desc: "Free Movies", img: "netflix.png", link: "https://play.google.com/store/apps/details?id=com.netflix.mediaclient" }
+        { name: "CapCut Pro", desc: "Premium Unlocked", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
+        { name: "KineMaster", desc: "No Watermark Mod", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
+        { name: "Minecraft", desc: "Full Game Free", img: "minecraft.png", link: "https://apkvision.org/android/games/minecraft-pe-130/download/" },
+        { name: "Spotify Premium", desc: "Ad-Free & Unlimited", img: "spotify.png", link: "https://apkmody.com/apps/spotify-music/download" },
+        { name: "PicsArt Gold", desc: "All VIP Assets", img: "picsart.png", link: "https://apkdone.com/picsart-photo-studio-1/download" },
+        { name: "Lightroom Pro", desc: "Premium Presets", img: "lightroom.png", link: "https://apkmody.com/apps/adobe-lightroom/download" },
+        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png", link: "https://apkdone.com/canva/download" },
+        { name: "Alight Motion", desc: "Full Unlocked Mod", img: "alight.png", link: "https://apkdone.com/alight-motion/download" },
+        { name: "GTA V Mobile", desc: "Full Game Data", img: "gta.jpg", link: "https://apkvision.org/android/games/gta-san-andreas-apk-2/download/" },
+        { name: "InShot Pro", desc: "All Filters Unlocked", img: "inshot.png", link: "https://apkdone.com/inshot/download" },
+        { name: "Truecaller Gold", desc: "Premium Features", img: "truecaller.jpg", link: "https://modapk.app/truecaller-premium-mod-apk-download/" },
+        { name: "Duolingo Plus", desc: "All Courses Free", img: "duolingo.png", link: "https://apkmody.com/apps/duolingo/download" },
+        { name: "Remini Pro", desc: "Unlimited AI Photos", img: "remini.png", link: "https://apkdone.com/remini/download" },
+        { name: "YouTube Premium", desc: "No Ads & Vanced", img: "youtube.png", link: "https://youtubevanced.com/" },
+        { name: "Netflix Mod", desc: "Free Premium Video", img: "netflix.png", link: "https://apkmody.com/apps/netflix/download" }
     ];
 
     const container = document.getElementById('app-container');
@@ -119,13 +120,13 @@
         container.innerHTML += `
             <div class="app-card">
                 <div style="display: flex; align-items: center; overflow: hidden;">
-                    <img src="${app.img}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/60?text=App'">
+                    <img src="${app.img}" alt="${app.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2111/2111432.png'">
                     <div class="app-info">
                         <div class="app-name">${app.name}</div>
-                        <div style="font-size:11px; color:#8b949e">${app.desc}</div>
+                        <div class="app-desc">${app.desc}</div>
                     </div>
                 </div>
-                <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock Ads</button>
+                <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock</button>
             </div>`;
     });
 
@@ -133,12 +134,10 @@
         const btn = document.getElementById(`btn-${index}`);
         
         if (!btn.classList.contains('download-mode')) {
-            // প্রথম ক্লিক: অ্যাড ওপেন হবে
             window.open(adsLink, '_blank');
             btn.innerText = "📥 Download";
             btn.classList.add('download-mode');
         } else {
-            // দ্বিতীয় ক্লিক: টাইমার শুরু
             initiateDownload(link, name);
         }
     }
@@ -158,7 +157,7 @@
         let timer = setInterval(() => {
             timeLeft--;
             progress += 20;
-            document.getElementById('timer-text').innerText = "Redirecting in " + timeLeft + "s...";
+            document.getElementById('timer-text').innerText = "Preparing premium link in " + timeLeft + "s...";
             document.getElementById('prog-bar').style.width = progress + "%";
 
             if (timeLeft <= 0) {
@@ -171,7 +170,8 @@
     }
 
     function goToLink() {
-        window.location.href = targetLink;
+        window.open(targetLink, '_blank');
+        closeModal();
     }
 
     function closeModal() {
