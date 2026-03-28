@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Mod Store</title>
     <style>
-        /* আপনার অরিজিনাল UI একদম সেম রাখা হয়েছে */
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
         header { 
             text-align: center; 
@@ -32,19 +31,22 @@
         .app-card:hover { transform: translateY(-2px); border-color: #238636; }
 
         .app-card img { 
-            width: 60px; 
-            height: 60px; 
+            width: 65px; 
+            height: 65px; 
             border-radius: 14px; 
             margin-right: 15px; 
             object-fit: cover; 
             border: 1.5px solid #30363d; 
             flex-shrink: 0; 
-            background: #0d1117;
         }
 
         .app-info { flex-grow: 1; overflow: hidden; }
-        .app-name { font-size: 16px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .app-desc { font-size: 12px; color: #8b949e; margin-top: 2px; }
+        .app-name { font-size: 16px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+        
+        /* রেটিং আর ডাউনলোড স্টাইল */
+        .app-stats { font-size: 11px; color: #8b949e; display: flex; align-items: center; gap: 10px; margin-top: 3px; }
+        .rating { color: #f1c40f; font-weight: bold; }
+        .downloads { color: #2ea043; font-weight: bold; }
 
         .download-btn { 
             background: #f85149; 
@@ -54,9 +56,9 @@
             border-radius: 8px; 
             font-weight: bold; 
             cursor: pointer; 
-            width: 120px; /* লেখা অনুযায়ী একটু অ্যাডজাস্ট করা হয়েছে */
+            width: 120px; 
             flex-shrink: 0; 
-            font-size: 12px; 
+            font-size: 11px; 
             text-align: center;
             box-shadow: 0 4px 15px rgba(248, 81, 73, 0.2);
             transition: all 0.3s;
@@ -65,7 +67,7 @@
 
         /* পপ-আপ ডিজাইন */
         #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px); }
-        .modal-content { background: #161b22; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #30363d; width: 85%; max-width: 360px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
+        .modal-content { background: #161b22; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #30363d; width: 85%; max-width: 360px; }
         .progress-container { width: 100%; background: #30363d; border-radius: 20px; margin: 20px 0; height: 10px; overflow: hidden; display:none; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #238636, #2ea043); transition: width 0.1s; }
         #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 16px; }
@@ -82,7 +84,7 @@
 <div id="download-modal">
     <div class="modal-content">
         <h3 id="modal-app-name" style="margin:0 0 10px 0; color:#fff;">Processing...</h3>
-        <p id="timer-text" style="color:#8b949e; font-size:14px;">Please wait while we generate the link...</p>
+        <p id="timer-text" style="color:#8b949e; font-size:14px;">Preparing secure download link...</p>
         <div class="progress-container" id="prog-cont">
             <div class="progress-bar" id="prog-bar"></div>
         </div>
@@ -94,22 +96,23 @@
 <script>
     const adsLink = "https://omg10.com/4/10797739"; 
 
+    // প্রতিটি অ্যাপের জন্য রেটিং আর ডাউনলোড ডেটা অ্যাড করা হয়েছে
     const apps = [
-        { name: "CapCut Pro", desc: "Premium Unlocked", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
-        { name: "KineMaster", desc: "No Watermark Mod", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
-        { name: "Minecraft", desc: "Full Game Free", img: "minecraft.png", link: "https://apkvision.org/android/games/minecraft-pe-130/download/" },
-        { name: "Spotify Premium", desc: "Ad-Free & Unlimited", img: "spotify.png", link: "https://apkmody.com/apps/spotify-music/download" },
-        { name: "PicsArt Gold", desc: "All VIP Assets", img: "picsart.png", link: "https://apkdone.com/picsart-photo-studio-1/download" },
-        { name: "Lightroom Pro", desc: "Premium Presets", img: "lightroom.png", link: "https://apkmody.com/apps/adobe-lightroom/download" },
-        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png", link: "https://apkdone.com/canva/download" },
-        { name: "Alight Motion", desc: "Full Unlocked Mod", img: "alight.png", link: "https://apkdone.com/alight-motion/download" },
-        { name: "GTA V Mobile", desc: "Full Game Data", img: "gta.jpg", link: "https://apkvision.org/android/games/gta-san-andreas-apk-2/download/" },
-        { name: "InShot Pro", desc: "All Filters Unlocked", img: "inshot.png", link: "https://apkdone.com/inshot/download" },
-        { name: "Truecaller Gold", desc: "Premium Features", img: "truecaller.jpg", link: "https://modapk.app/truecaller-premium-mod-apk-download/" },
-        { name: "Duolingo Plus", desc: "All Courses Free", img: "duolingo.png", link: "https://apkmody.com/apps/duolingo/download" },
-        { name: "Remini Pro", desc: "Unlimited AI Photos", img: "remini.png", link: "https://apkdone.com/remini/download" },
-        { name: "YouTube Premium", desc: "No Ads & Vanced", img: "youtube.png", link: "https://youtubevanced.com/" },
-        { name: "Netflix Mod", desc: "Free Premium Video", img: "netflix.png", link: "https://apkmody.com/apps/netflix/download" }
+        { name: "CapCut Pro", rate: "⭐ 4.8", size: "112MB", down: "⬇ 500M+", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
+        { name: "KineMaster", rate: "⭐ 4.5", size: "95MB", down: "⬇ 100M+", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
+        { name: "Minecraft", rate: "⭐ 4.7", size: "650MB", down: "⬇ 50M+", img: "minecraft.png", link: "https://apkvision.org/android/games/minecraft-pe-130/download/" },
+        { name: "Spotify Premium", rate: "⭐ 4.6", size: "35MB", down: "⬇ 1B+", img: "spotify.png", link: "https://apkmody.com/apps/spotify-music/download" },
+        { name: "PicsArt Gold", rate: "⭐ 4.4", size: "75MB", down: "⬇ 500M+", img: "picsart.png", link: "https://apkdone.com/picsart-photo-studio-1/download" },
+        { name: "Lightroom Pro", rate: "⭐ 4.8", size: "102MB", down: "⬇ 100M+", img: "lightroom.png", link: "https://apkmody.com/apps/adobe-lightroom/download" },
+        { name: "Canva Pro", rate: "⭐ 4.7", size: "28MB", down: "⬇ 100M+", img: "canva.png", link: "https://apkdone.com/canva/download" },
+        { name: "Alight Motion", rate: "⭐ 4.3", size: "140MB", down: "⬇ 50M+", img: "alight.png", link: "https://apkdone.com/alight-motion/download" },
+        { name: "GTA SA Mobile", rate: "⭐ 4.9", size: "2.4GB", down: "⬇ 10M+", img: "gta.jpg", link: "https://apkvision.org/android/games/gta-san-andreas-apk-2/download/" },
+        { name: "InShot Pro", rate: "⭐ 4.8", size: "65MB", down: "⬇ 500M+", img: "inshot.png", link: "https://apkdone.com/inshot/download" },
+        { name: "Truecaller Gold", rate: "⭐ 4.5", size: "55MB", down: "⬇ 500M+", img: "truecaller.jpg", link: "https://modapk.app/truecaller-premium-mod-apk-download/" },
+        { name: "Duolingo Plus", rate: "⭐ 4.7", size: "48MB", down: "⬇ 100M+", img: "duolingo.png", link: "https://apkmody.com/apps/duolingo/download" },
+        { name: "Remini Pro", rate: "⭐ 4.6", size: "90MB", down: "⬇ 100M+", img: "remini.png", link: "https://apkdone.com/remini/download" },
+        { name: "YouTube Vanced", rate: "⭐ 4.9", size: "125MB", down: "⬇ 10M+", img: "youtube.png", link: "https://youtubevanced.com/" },
+        { name: "Netflix Mod", rate: "⭐ 4.4", size: "22MB", down: "⬇ 1B+", img: "netflix.png", link: "https://apkmody.com/apps/netflix/download" }
     ];
 
     const container = document.getElementById('app-container');
@@ -122,7 +125,14 @@
                     <img src="${app.img}" alt="${app.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2111/2111432.png'">
                     <div class="app-info">
                         <div class="app-name">${app.name}</div>
-                        <div class="app-desc">${app.desc}</div>
+                        <div class="app-stats">
+                            <span class="rating">${app.rate}</span>
+                            <span style="color:#30363d">|</span>
+                            <span>${app.size}</span>
+                        </div>
+                        <div class="app-stats">
+                            <span class="downloads">${app.down} downloads</span>
+                        </div>
                     </div>
                 </div>
                 <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock for ads</button>
@@ -131,7 +141,6 @@
 
     function handleAction(index, link, name) {
         const btn = document.getElementById(`btn-${index}`);
-        
         if (!btn.classList.contains('download-mode')) {
             window.open(adsLink, '_blank');
             btn.innerText = "📥 Download";
@@ -156,7 +165,7 @@
         let timer = setInterval(() => {
             timeLeft--;
             progress += 20;
-            document.getElementById('timer-text').innerText = "Preparing premium link in " + timeLeft + "s...";
+            document.getElementById('timer-text').innerText = "Preparing link in " + timeLeft + "s...";
             document.getElementById('prog-bar').style.width = progress + "%";
 
             if (timeLeft <= 0) {
