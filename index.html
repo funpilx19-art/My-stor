@@ -17,12 +17,13 @@
             display: flex; 
             align-items: center; 
             border: 1px solid #30363d; 
+            justify-content: space-between; /* লোগো আর বাটনকে দুই পাশে রাখার জন্য */
         }
 
-        /* লোগো ফিক্সড রাখার জন্য স্টাইল */
+        /* লোগো লজিক ও ডিজাইন একদম সেম */
         .app-card img { 
-            width: 60px !important; 
-            height: 60px !important; 
+            width: 60px; 
+            height: 60px; 
             border-radius: 12px; 
             margin-right: 15px; 
             object-fit: cover; 
@@ -32,7 +33,7 @@
 
         .app-info { 
             flex-grow: 1; 
-            overflow: hidden; /* বড় নাম যেন বাটনকে ঠেলতে না পারে */
+            overflow: hidden; 
         }
 
         .app-name { 
@@ -40,26 +41,26 @@
             font-weight: bold; 
             white-space: nowrap; 
             overflow: hidden; 
-            text-overflow: ellipsis; /* বড় নাম হলে ডট ডট দেখাবে */
+            text-overflow: ellipsis; 
         }
 
-        /* বাটন সেম সাইজ রাখার জন্য স্টাইল */
+        /* বাটনের সাইজ ফিক্সড করা হয়েছে যাতে সব বাটন সমান দেখায় */
         .download-btn { 
-            background: #238636; 
+            background: #f85149; /* শুরুতে আনলক অ্যাডস তাই লাল */
             color: white; 
             border: none; 
             padding: 10px 0; 
             border-radius: 6px; 
             font-weight: bold; 
             cursor: pointer; 
-            width: 115px; /* সব বাটন সমান মাপের হবে */
+            width: 110px; 
             flex-shrink: 0; 
-            font-size: 12px;
+            font-size: 12px; 
             text-align: center;
         }
 
-        /* অ্যাড আনলক মোড বাটন কালার */
-        .unlock-mode { background: #f85149 !important; }
+        /* ডাউনলোড মোডে বাটনের কালার সবুজ হবে */
+        .download-mode { background: #238636 !important; }
 
         /* পপ-আপ এবং প্রগ্রেস বার */
         #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
@@ -90,25 +91,25 @@
 </div>
 
 <script>
-    // আপনার অ্যাড লিঙ্ক এবং প্লে-স্টোর লিঙ্ক
     const adsLink = "https://omg10.com/4/10797739"; 
 
+    // ইমেজ পাথ আপনার আগের মতো রাখা হয়েছে (capcut.jpg ইত্যাদি)
     const apps = [
-        { name: "CapCut Pro", desc: "No Watermark", img: "Image/capcut.jpg", playstore: "https://play.google.com/store/apps/details?id=com.lemon.lvoverseas" },
-        { name: "KineMaster", desc: "Pro Unlocked", img: "Image/kinemaster.png", playstore: "https://play.google.com/store/apps/details?id=com.nexstreaming.app.kinemasterfree" },
-        { name: "Minecraft", desc: "Full Version", img: "Image/minecraft.png", playstore: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" },
-        { name: "Spotify Premium", desc: "No Ads", img: "Image/spotify.png", playstore: "https://play.google.com/store/apps/details?id=com.spotify.music" },
-        { name: "PicsArt Gold", desc: "VIP Assets", img: "Image/picsart.png", playstore: "https://play.google.com/store/apps/details?id=com.picsart.studio" },
-        { name: "Lightroom Pro", desc: "All Presets", img: "Image/lightroom.png", playstore: "https://play.google.com/store/apps/details?id=com.adobe.lrmobile" },
-        { name: "Canva Pro", desc: "Pro Templates", img: "Image/canva.png", playstore: "https://play.google.com/store/apps/details?id=com.canva.editor" },
-        { name: "Alight Motion", desc: "No Lag Mod", img: "Image/alight.png", playstore: "https://play.google.com/store/apps/details?id=com.alightcreative.motion" },
-        { name: "GTA V", desc: "Mobile Edition", img: "Image/gta.jpg", playstore: "https://play.google.com/store/apps/details?id=com.rockstargames.gtasa" },
-        { name: "InShot Pro", desc: "Full Effects", img: "Image/inshot.png", playstore: "https://play.google.com/store/apps/details?id=com.camerasideas.instashot" },
-        { name: "Truecaller Gold", desc: "Gold Badge", img: "Image/truecaller.jpg", playstore: "https://play.google.com/store/apps/details?id=com.truecaller" },
-        { name: "Duolingo Plus", desc: "Premium Courses", img: "Image/duolingo.png", playstore: "https://play.google.com/store/apps/details?id=com.duolingo" },
-        { name: "Remini Pro", desc: "Unlimited AI", img: "Image/remini.png", playstore: "https://play.google.com/store/apps/details?id=com.bigwinepot.nwdn.international" },
-        { name: "YouTube Premium", desc: "Background Play", img: "Image/youtube.png", playstore: "https://play.google.com/store/apps/details?id=com.google.android.youtube" },
-        { name: "Netflix Mod", desc: "Free Movies", img: "Image/netflix.png", playstore: "https://play.google.com/store/apps/details?id=com.netflix.mediaclient" }
+        { name: "CapCut Pro", desc: "No Watermark", img: "capcut.jpg", link: "https://play.google.com/store/apps/details?id=com.lemon.lvoverseas" },
+        { name: "KineMaster", desc: "Pro Unlocked", img: "kinemaster.png", link: "https://play.google.com/store/apps/details?id=com.nexstreaming.app.kinemasterfree" },
+        { name: "Minecraft", desc: "Full Version", img: "minecraft.png", link: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" },
+        { name: "Spotify Premium", desc: "No Ads", img: "spotify.png", link: "https://play.google.com/store/apps/details?id=com.spotify.music" },
+        { name: "PicsArt Gold", desc: "VIP Assets", img: "picsart.png", link: "https://play.google.com/store/apps/details?id=com.picsart.studio" },
+        { name: "Lightroom Pro", desc: "All Presets", img: "lightroom.png", link: "https://play.google.com/store/apps/details?id=com.adobe.lrmobile" },
+        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png", link: "https://play.google.com/store/apps/details?id=com.canva.editor" },
+        { name: "Alight Motion", desc: "No Lag Mod", img: "alight.png", link: "https://play.google.com/store/apps/details?id=com.alightcreative.motion" },
+        { name: "GTA V", desc: "Mobile Edition", img: "gta.jpg", link: "https://play.google.com/store/apps/details?id=com.rockstargames.gtasa" },
+        { name: "InShot Pro", desc: "Full Effects", img: "inshot.png", link: "https://play.google.com/store/apps/details?id=com.camerasideas.instashot" },
+        { name: "Truecaller Gold", desc: "Gold Badge", img: "truecaller.jpg", link: "https://play.google.com/store/apps/details?id=com.truecaller" },
+        { name: "Duolingo Plus", desc: "Premium Courses", img: "duolingo.png", link: "https://play.google.com/store/apps/details?id=com.duolingo" },
+        { name: "Remini Pro", desc: "Unlimited AI", img: "remini.png", link: "https://play.google.com/store/apps/details?id=com.bigwinepot.nwdn.international" },
+        { name: "YouTube Premium", desc: "Background Play", img: "youtube.png", link: "https://play.google.com/store/apps/details?id=com.google.android.youtube" },
+        { name: "Netflix Mod", desc: "Free Movies", img: "netflix.png", link: "https://play.google.com/store/apps/details?id=com.netflix.mediaclient" }
     ];
 
     const container = document.getElementById('app-container');
@@ -117,24 +118,28 @@
     apps.forEach((app, index) => {
         container.innerHTML += `
             <div class="app-card">
-                <img src="${app.img}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/60?text=App'">
-                <div class="app-info">
-                    <div class="app-name">${app.name}</div>
-                    <div style="font-size:11px; color:#8b949e">${app.desc}</div>
+                <div style="display: flex; align-items: center; overflow: hidden;">
+                    <img src="${app.img}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/60?text=App'">
+                    <div class="app-info">
+                        <div class="app-name">${app.name}</div>
+                        <div style="font-size:11px; color:#8b949e">${app.desc}</div>
+                    </div>
                 </div>
-                <button id="btn-${index}" class="download-btn unlock-mode" onclick="handleAction(${index}, '${app.playstore}', '${app.name}')">🔓 Unlock Ads</button>
+                <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock Ads</button>
             </div>`;
     });
 
-    function handleAction(index, psLink, name) {
+    function handleAction(index, link, name) {
         const btn = document.getElementById(`btn-${index}`);
         
-        if (btn.classList.contains('unlock-mode')) {
-            window.open(adsLink, '_blank'); // অ্যাড ওপেন
+        if (!btn.classList.contains('download-mode')) {
+            // প্রথম ক্লিক: অ্যাড ওপেন হবে
+            window.open(adsLink, '_blank');
             btn.innerText = "📥 Download";
-            btn.classList.remove('unlock-mode');
+            btn.classList.add('download-mode');
         } else {
-            initiateDownload(psLink, name); // টাইমার শুরু
+            // দ্বিতীয় ক্লিক: টাইমার শুরু
+            initiateDownload(link, name);
         }
     }
 
@@ -153,7 +158,7 @@
         let timer = setInterval(() => {
             timeLeft--;
             progress += 20;
-            document.getElementById('timer-text').innerText = "Generating link in " + timeLeft + "s...";
+            document.getElementById('timer-text').innerText = "Redirecting in " + timeLeft + "s...";
             document.getElementById('prog-bar').style.width = progress + "%";
 
             if (timeLeft <= 0) {
