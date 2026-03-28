@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Apps Store</title>
+    <title>Premium Apps</title>
     <style>
+        /* আপনার UI একদম সেম রাখা হয়েছে */
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
         header { text-align: center; padding: 20px; background: #161b22; border-radius: 15px; border: 1px solid #30363d; margin-bottom: 20px; }
         .app-card { background: #161b22; border-radius: 12px; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; border: 1px solid #30363d; }
@@ -23,30 +24,31 @@
 <div id="app-container"></div>
 
 <script>
-    // এখানে ইমেজগুলো 'Image' ফোল্ডার থেকে লোড হবে
+    // আপনার Hopweb স্টোরেজ অনুযায়ী ইমেজ নামগুলো সেট করা হলো
     const apps = [
-        { name: "CapCut Pro", desc: "No Watermark", img: "Image/capcut.jpg" },
-        { name: "KineMaster", desc: "Pro Unlocked", img: "Image/kinemaster.png" },
-        { name: "Minecraft", desc: "Full Version", img: "Image/minecraft.png" },
-        { name: "Spotify Premium", desc: "No Ads", img: "Image/spotify.png" },
-        { name: "PicsArt Gold", desc: "VIP Assets", img: "Image/picsart.png" },
-        { name: "Lightroom Pro", desc: "All Presets", img: "Image/lightroom.png" },
-        { name: "Canva Pro", desc: "Pro Templates", img: "Image/canva.png" },
-        { name: "Alight Motion", desc: "No Lag Mod", img: "Image/alight.png" },
-        { name: "GTA V", desc: "Mobile Edition", img: "Image/gta.jpg" },
-        { name: "InShot Pro", desc: "Full Effects", img: "Image/inshot.png" },
-        { name: "Truecaller Gold", desc: "Gold Badge", img: "Image/truecaller.jpg" },
-        { name: "Duolingo Plus", desc: "Premium Courses", img: "Image/duolingo.png" },
-        { name: "Remini Pro", desc: "Unlimited AI", img: "Image/remini.png" },
-        { name: "YouTube Premium", desc: "Background Play", img: "Image/youtube.png" },
-        { name: "Netflix Mod", desc: "Free Movies", img: "Image/netflix.png" }
+        { name: "CapCut Pro", desc: "No Watermark", img: "capcut.jpg" },
+        { name: "KineMaster", desc: "Pro Unlocked", img: "kinemaster.png" },
+        { name: "Minecraft", desc: "Full Version", img: "minecraft.png" },
+        { name: "Spotify Premium", desc: "No Ads", img: "spotify.png" },
+        { name: "PicsArt Gold", desc: "VIP Assets", img: "picsart.png" },
+        { name: "Lightroom Pro", desc: "All Presets", img: "lightroom.png" },
+        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png" },
+        { name: "Alight Motion", desc: "No Lag Mod", img: "alight.png" },
+        { name: "GTA V", desc: "Mobile Edition", img: "gta.jpg" },
+        { name: "InShot Pro", desc: "Full Effects", img: "inshot.png" },
+        { name: "Truecaller Gold", desc: "Gold Badge", img: "truecaller.jpg" },
+        { name: "Duolingo Plus", desc: "Premium Courses", img: "duolingo.png" },
+        { name: "Remini Pro", desc: "Unlimited AI", img: "remini.png" },
+        { name: "YouTube Premium", desc: "Background Play", img: "youtube.png" },
+        { name: "Netflix Mod", desc: "Free Movies", img: "netflix.png" }
     ];
 
     const container = document.getElementById('app-container');
+    
     apps.forEach(app => {
         container.innerHTML += `
             <div class="app-card">
-                <img src="${app.img}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/60?text=Error'">
+                <img src="${app.img}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/60?text=App'">
                 <div class="app-info">
                     <div class="app-name">${app.name}</div>
                     <div style="font-size:11px; color:#8b949e">${app.desc}</div>
