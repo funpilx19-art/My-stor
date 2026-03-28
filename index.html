@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Apps</title>
     <style>
-        /* আপনার অরিজিনাল UI স্টাইল */
+        /* আপনার UI একদম সেম রাখা হয়েছে */
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
         header { text-align: center; padding: 20px; background: #161b22; border-radius: 15px; border: 1px solid #30363d; margin-bottom: 20px; }
         .app-card { background: #161b22; border-radius: 12px; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; border: 1px solid #30363d; }
@@ -14,41 +14,12 @@
         .app-name { font-size: 16px; font-weight: bold; }
         .download-btn { background: #238636; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-        /* পপ-আপ (Modal) স্টাইল - UI-এর সাথে মিল রেখে */
-        #download-modal { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); 
-            z-index: 1000; 
-            justify-content: center; 
-            align-items: center; 
-            flex-direction: column; 
-        }
-        .modal-content { 
-            background: #161b22; 
-            padding: 25px; 
-            border-radius: 15px; 
-            text-align: center; 
-            border: 1px solid #30363d; 
-            width: 85%; 
-            max-width: 350px; 
-        }
-        .progress-container { width: 100%; background: #30363d; border-radius: 10px; margin: 20px 0; display:none; overflow: hidden; }
-        .progress-bar { width: 0%; height: 8px; background: #238636; transition: width 0.1s; }
-        #timer-text { font-size: 16px; color: #8b949e; margin-bottom: 10px; }
-        #unlock-btn { 
-            display: none; 
-            background: #1f6feb; 
-            color: white; 
-            border: none; 
-            padding: 12px 30px; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            width: 100%;
-        }
+        /* পপ-আপ এবং প্রগ্রেস বার (যা আপনার মেইন UI নষ্ট করবে না) */
+        #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        .modal-content { background: #161b22; padding: 25px; border-radius: 15px; text-align: center; border: 1px solid #30363d; width: 80%; max-width: 350px; }
+        .progress-container { width: 100%; background: #30363d; border-radius: 10px; margin: 15px 0; height: 8px; overflow: hidden; display:none; }
+        .progress-bar { width: 0%; height: 100%; background: #238636; transition: width 0.1s; }
+        #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -61,43 +32,39 @@
 
 <div id="download-modal">
     <div class="modal-content">
-        <h3 id="modal-app-name" style="margin-top:0;">File Ready</h3>
-        <p id="timer-text">Please wait 5s...</p>
-        
+        <h3 id="modal-app-name" style="margin:0 0 10px 0;">Processing...</h3>
+        <p id="timer-text" style="color:#8b949e; font-size:14px;">Please wait...</p>
         <div class="progress-container" id="prog-cont">
             <div class="progress-bar" id="prog-bar"></div>
         </div>
-
         <button id="unlock-btn" onclick="goToLink()">🚀 Download Now</button>
-        <button style="margin-top:20px; background:none; border:none; color:#f85149; cursor:pointer; font-size:14px;" onclick="closeModal()">Close</button>
+        <button style="margin-top:15px; background:none; border:none; color:#f85149; cursor:pointer;" onclick="closeModal()">[ Cancel ]</button>
     </div>
 </div>
 
 <script>
-    // প্রতিটি অ্যাপের জন্য আলাদা 'link' এখানে বসাবেন
+    // প্রতিটি অ্যাপের জন্য আলাদা 'link' দেওয়ার সিস্টেম
     const apps = [
-        { name: "CapCut Pro", desc: "No Watermark", img: "Image/capcut.jpg", link: "আপনার_লিঙ্ক_১" },
-        { name: "KineMaster", desc: "Pro Unlocked", img: "Image/kinemaster.png", link: "আপনার_লিঙ্ক_২" },
-        { name: "Minecraft", desc: "Full Version", img: "Image/minecraft.png", link: "আপনার_লিঙ্ক_৩" },
-        { name: "Spotify Premium", desc: "No Ads", img: "Image/spotify.png", link: "#" },
-        { name: "PicsArt Gold", desc: "VIP Assets", img: "Image/picsart.png", link: "#" },
-        { name: "Lightroom Pro", desc: "All Presets", img: "Image/lightroom.png", link: "#" },
-        { name: "Canva Pro", desc: "Pro Templates", img: "Image/canva.png", link: "#" },
-        { name: "Alight Motion", desc: "No Lag Mod", img: "Image/alight.png", link: "#" },
-        { name: "GTA V", desc: "Mobile Edition", img: "Image/gta.jpg", link: "#" },
-        { name: "InShot Pro", desc: "Full Effects", img: "Image/inshot.png", link: "#" },
-        { name: "Truecaller Gold", desc: "Gold Badge", img: "Image/truecaller.jpg", link: "#" },
-        { name: "Duolingo Plus", desc: "Premium Courses", img: "Image/duolingo.png", link: "#" },
-        { name: "Remini Pro", desc: "Unlimited AI", img: "Image/remini.png", link: "#" },
-        { name: "YouTube Premium", desc: "Background Play", img: "Image/youtube.png", link: "#" },
-        { name: "Netflix Mod", desc: "Free Movies", img: "Image/netflix.png", link: "#" }
+        { name: "CapCut Pro", desc: "No Watermark", img: "capcut.jpg", link: "আপনার_লিঙ্ক_১" },
+        { name: "KineMaster", desc: "Pro Unlocked", img: "kinemaster.png", link: "আপনার_লিঙ্ক_২" },
+        { name: "Minecraft", desc: "Full Version", img: "minecraft.png", link: "আপনার_লিঙ্ক_৩" },
+        { name: "Spotify Premium", desc: "No Ads", img: "spotify.png", link: "আপনার_লিঙ্ক_৪" },
+        { name: "PicsArt Gold", desc: "VIP Assets", img: "picsart.png", link: "#" },
+        { name: "Lightroom Pro", desc: "All Presets", img: "lightroom.png", link: "#" },
+        { name: "Canva Pro", desc: "Pro Templates", img: "canva.png", link: "#" },
+        { name: "Alight Motion", desc: "No Lag Mod", img: "alight.png", link: "#" },
+        { name: "GTA V", desc: "Mobile Edition", img: "gta.jpg", link: "#" },
+        { name: "InShot Pro", desc: "Full Effects", img: "inshot.png", link: "#" },
+        { name: "Truecaller Gold", desc: "Gold Badge", img: "truecaller.jpg", link: "#" },
+        { name: "Duolingo Plus", desc: "Premium Courses", img: "duolingo.png", link: "#" },
+        { name: "Remini Pro", desc: "Unlimited AI", img: "remini.png", link: "#" },
+        { name: "YouTube Premium", desc: "Background Play", img: "youtube.png", link: "#" },
+        { name: "Netflix Mod", desc: "Free Movies", img: "netflix.png", link: "#" }
     ];
 
-    let currentDownloadLink = "";
-
     const container = document.getElementById('app-container');
-    
-    // UI রেন্ডার করা (আগের মতোই)
+    let targetLink = "";
+
     apps.forEach(app => {
         container.innerHTML += `
             <div class="app-card">
@@ -106,13 +73,12 @@
                     <div class="app-name">${app.name}</div>
                     <div style="font-size:11px; color:#8b949e">${app.desc}</div>
                 </div>
-                <button class="download-btn" onclick="startTimer('${app.link}', '${app.name}')">Download</button>
+                <button class="download-btn" onclick="initiateDownload('${app.link}', '${app.name}')">Download</button>
             </div>`;
     });
 
-    // টাইমার এবং প্রগ্রেস বার লজিক
-    function startTimer(link, name) {
-        currentDownloadLink = link;
+    function initiateDownload(link, name) {
+        targetLink = link;
         document.getElementById('modal-app-name').innerText = name;
         document.getElementById('download-modal').style.display = 'flex';
         document.getElementById('prog-cont').style.display = 'block';
@@ -123,14 +89,14 @@
         let progress = 0;
         document.getElementById('prog-bar').style.width = "0%";
 
-        let downloadTimer = setInterval(() => {
+        let timer = setInterval(() => {
             timeLeft--;
             progress += 20;
             document.getElementById('timer-text').innerText = "Generating link in " + timeLeft + "s...";
             document.getElementById('prog-bar').style.width = progress + "%";
 
             if (timeLeft <= 0) {
-                clearInterval(downloadTimer);
+                clearInterval(timer);
                 document.getElementById('timer-text').style.display = 'none';
                 document.getElementById('prog-cont').style.display = 'none';
                 document.getElementById('unlock-btn').style.display = 'block';
@@ -139,10 +105,10 @@
     }
 
     function goToLink() {
-        if(currentDownloadLink === "#") {
-            alert("Link not added yet!");
+        if(targetLink === "#" || targetLink === "") {
+            alert("এই অ্যাপের ডাউনলোড লিঙ্ক এখনো সেট করা হয়নি!");
         } else {
-            window.open(currentDownloadLink, '_blank');
+            window.open(targetLink, '_blank');
             closeModal();
         }
     }
