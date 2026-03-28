@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Mod Store</title>
     <style>
-        /* আপনার অরিজিনাল UI একদম সেম রাখা হয়েছে, জাস্ট একটু প্রো লুক দেওয়া হয়েছে */
+        /* আপনার অরিজিনাল UI একদম সেম রাখা হয়েছে */
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
         header { 
             text-align: center; 
@@ -50,13 +50,13 @@
             background: #f85149; 
             color: white; 
             border: none; 
-            padding: 10px 0; 
+            padding: 10px 5px; 
             border-radius: 8px; 
             font-weight: bold; 
             cursor: pointer; 
-            width: 110px; 
+            width: 120px; /* লেখা অনুযায়ী একটু অ্যাডজাস্ট করা হয়েছে */
             flex-shrink: 0; 
-            font-size: 13px; 
+            font-size: 12px; 
             text-align: center;
             box-shadow: 0 4px 15px rgba(248, 81, 73, 0.2);
             transition: all 0.3s;
@@ -94,7 +94,6 @@
 <script>
     const adsLink = "https://omg10.com/4/10797739"; 
 
-    // প্রতিটি অ্যাপের জন্য কাজ করে এমন Mod ডাউনলোড লিঙ্ক সেট করা হয়েছে
     const apps = [
         { name: "CapCut Pro", desc: "Premium Unlocked", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
         { name: "KineMaster", desc: "No Watermark Mod", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
@@ -126,7 +125,7 @@
                         <div class="app-desc">${app.desc}</div>
                     </div>
                 </div>
-                <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock</button>
+                <button id="btn-${index}" class="download-btn" onclick="handleAction(${index}, '${app.link}', '${app.name}')">🔓 Unlock for ads</button>
             </div>`;
     });
 
