@@ -43,7 +43,6 @@
         .app-info { flex-grow: 1; overflow: hidden; }
         .app-name { font-size: 16px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
         
-        /* রেটিং আর ডাউনলোড স্টাইল */
         .app-stats { font-size: 11px; color: #8b949e; display: flex; align-items: center; gap: 10px; margin-top: 3px; }
         .rating { color: #f1c40f; font-weight: bold; }
         .downloads { color: #2ea043; font-weight: bold; }
@@ -65,12 +64,21 @@
         }
         .download-mode { background: #238636 !important; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.3) !important; }
 
-        /* পপ-আপ ডিজাইন */
         #download-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(5px); }
         .modal-content { background: #161b22; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #30363d; width: 85%; max-width: 360px; }
         .progress-container { width: 100%; background: #30363d; border-radius: 20px; margin: 20px 0; height: 10px; overflow: hidden; display:none; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #238636, #2ea043); transition: width 0.1s; }
         #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 16px; }
+
+        /* Footer Style */
+        footer { 
+            margin-top: 40px; 
+            padding: 25px; 
+            background: #161b22; 
+            border-top: 1px solid #30363d; 
+            text-align: center; 
+            border-radius: 20px 20px 0 0;
+        }
     </style>
 </head>
 <body>
@@ -93,10 +101,19 @@
     </div>
 </div>
 
+<footer>
+    <p style="font-size: 14px; color: #f85149; font-weight: bold; margin-bottom: 8px;">⚠️ Disclaimer</p>
+    <p style="font-size: 11px; color: #8b949e; line-height: 1.6; margin-bottom: 15px;">
+        This site does not host any files. All content is provided by non-affiliated third parties. 
+        These apps are for educational use only. If you own any content and want it removed, contact us.
+    </p>
+    <hr style="border: 0; border-top: 1px solid #30363d; margin: 15px 0;">
+    <p style="font-size: 12px; color: #238636; font-weight: bold;">© 2026 Premium Mod Store | All Rights Reserved</p>
+</footer>
+
 <script>
     const adsLink = "https://omg10.com/4/10797739"; 
 
-    // প্রতিটি অ্যাপের জন্য রেটিং আর ডাউনলোড ডেটা অ্যাড করা হয়েছে
     const apps = [
         { name: "CapCut Pro", rate: "⭐ 4.8", size: "112MB", down: "⬇ 500M+", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
         { name: "KineMaster", rate: "⭐ 4.5", size: "95MB", down: "⬇ 100M+", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
