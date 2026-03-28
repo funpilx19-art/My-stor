@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Mod Store</title>
+    <title>Premium Mod Store | Free Pro Apps</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://funpilx19-art.github.io/My-stor/"> 
+    <meta property="og:title" content="🚀 Premium Mod Store | Download Pro Apps Free">
+    <meta property="og:description" content="Download YouTube Premium, GTA V, Netflix, CapCut Pro & More! High-speed and secure downloads.">
+    <meta property="og:image" content="og-image.jpg"> 
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🚀 Premium Mod Store | Free Pro Apps">
+    <meta name="twitter:description" content="Download YouTube Premium, GTA V, Netflix & more for free!">
+    <meta name="twitter:image" content="og-image.jpg">
+
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: white; margin: 0; padding: 15px; }
         header { 
@@ -70,7 +84,6 @@
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #238636, #2ea043); transition: width 0.1s; }
         #unlock-btn { display: none; background: #1f6feb; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 16px; }
 
-        /* Footer Style */
         footer { 
             margin-top: 40px; 
             padding: 25px; 
@@ -115,21 +128,21 @@
     const adsLink = "https://omg10.com/4/10797739"; 
 
     const apps = [
+        { name: "YouTube Premium", rate: "⭐ 4.9", size: "125MB", down: "⬇ 1B+", img: "youtube.png", link: "https://apkdone.com/youtube-premium/" },
+        { name: "GTA V Mobile", rate: "⭐ 4.9", size: "2.4GB", down: "⬇ 10M+", img: "gta.jpg", link: "https://apkdone.com/grand-theft-auto-v/" },
+        { name: "Netflix Mod", rate: "⭐ 4.4", size: "22MB", down: "⬇ 1B+", img: "netflix.png", link: "https://apkmody.com/apps/netflix/download" },
         { name: "CapCut Pro", rate: "⭐ 4.8", size: "112MB", down: "⬇ 500M+", img: "capcut.jpg", link: "https://apkmody.com/apps/capcut/download" },
-        { name: "KineMaster", rate: "⭐ 4.5", size: "95MB", down: "⬇ 100M+", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
-        { name: "Minecraft", rate: "⭐ 4.7", size: "650MB", down: "⬇ 50M+", img: "minecraft.png", link: "https://apkvision.org/android/games/minecraft-pe-130/download/" },
+        { name: "Minecraft Mobile", rate: "⭐ 4.7", size: "650MB", down: "⬇ 50M+", img: "minecraft.png", link: "https://apkmody.com/games/minecraft/download" },
         { name: "Spotify Premium", rate: "⭐ 4.6", size: "35MB", down: "⬇ 1B+", img: "spotify.png", link: "https://apkmody.com/apps/spotify-music/download" },
+        { name: "KineMaster Pro", rate: "⭐ 4.5", size: "95MB", down: "⬇ 100M+", img: "kinemaster.png", link: "https://apkdone.com/kinemaster/download" },
         { name: "PicsArt Gold", rate: "⭐ 4.4", size: "75MB", down: "⬇ 500M+", img: "picsart.png", link: "https://apkdone.com/picsart-photo-studio-1/download" },
         { name: "Lightroom Pro", rate: "⭐ 4.8", size: "102MB", down: "⬇ 100M+", img: "lightroom.png", link: "https://apkmody.com/apps/adobe-lightroom/download" },
         { name: "Canva Pro", rate: "⭐ 4.7", size: "28MB", down: "⬇ 100M+", img: "canva.png", link: "https://apkdone.com/canva/download" },
         { name: "Alight Motion", rate: "⭐ 4.3", size: "140MB", down: "⬇ 50M+", img: "alight.png", link: "https://apkdone.com/alight-motion/download" },
-        { name: "GTA SA Mobile", rate: "⭐ 4.9", size: "2.4GB", down: "⬇ 10M+", img: "gta.jpg", link: "https://apkvision.org/android/games/gta-san-andreas-apk-2/download/" },
         { name: "InShot Pro", rate: "⭐ 4.8", size: "65MB", down: "⬇ 500M+", img: "inshot.png", link: "https://apkdone.com/inshot/download" },
         { name: "Truecaller Gold", rate: "⭐ 4.5", size: "55MB", down: "⬇ 500M+", img: "truecaller.jpg", link: "https://modapk.app/truecaller-premium-mod-apk-download/" },
         { name: "Duolingo Plus", rate: "⭐ 4.7", size: "48MB", down: "⬇ 100M+", img: "duolingo.png", link: "https://apkmody.com/apps/duolingo/download" },
-        { name: "Remini Pro", rate: "⭐ 4.6", size: "90MB", down: "⬇ 100M+", img: "remini.png", link: "https://apkdone.com/remini/download" },
-        { name: "YouTube Vanced", rate: "⭐ 4.9", size: "125MB", down: "⬇ 10M+", img: "youtube.png", link: "https://youtubevanced.com/" },
-        { name: "Netflix Mod", rate: "⭐ 4.4", size: "22MB", down: "⬇ 1B+", img: "netflix.png", link: "https://apkmody.com/apps/netflix/download" }
+        { name: "Remini Pro", rate: "⭐ 4.6", size: "90MB", down: "⬇ 100M+", img: "remini.png", link: "https://apkdone.com/remini/download" }
     ];
 
     const container = document.getElementById('app-container');
